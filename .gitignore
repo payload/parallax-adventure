@@ -1,1 +1,2 @@
-master/*
+build/*
+node_modules/*
