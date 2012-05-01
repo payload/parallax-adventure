@@ -6,12 +6,14 @@
 
     Context2D.name = 'Context2D';
 
-    function Context2D(width, height) {
+    function Context2D(width, height, background) {
       var canvas, proto;
       canvas = document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
-      document.body.insertBefore(canvas, document.body.firstChild);
+      if (!background) {
+        document.body.insertBefore(canvas, document.body.firstChild);
+      }
       proto = this.__proto__;
       this.__proto__ = this.prototype = canvas.getContext('2d');
       OBJ_X(this, proto);

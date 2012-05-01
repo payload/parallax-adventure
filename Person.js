@@ -20,6 +20,8 @@
 
       this.draw = __bind(this.draw, this);
 
+      this.update_pos = __bind(this.update_pos, this);
+
       this.set_layer = __bind(this.set_layer, this);
 
       if (this.p == null) {
@@ -42,8 +44,16 @@
       if (this.layer) {
         this.layer.$.objs.add(this);
         this.ground = this.layer.ground;
+        this.update_pos();
       }
       return this.layer;
+    };
+
+    Person.prototype.update_pos = function() {
+      this.p.x = max(min(this.p.x, this.ground.p.x + this.ground.size.x - this.r), this.ground.p.x + this.r);
+      if (this.ground) {
+        return this.p.y = this.ground.top(this.p.x);
+      }
     };
 
     Person.prototype.draw = function(ctx) {
@@ -57,22 +67,16 @@
     };
 
     Person.prototype.update = function(dt) {
-      var t, x, y, _ref;
-      if (this.movements.coord) {
-        _ref = this.movements.coord, x = _ref.x, y = _ref.y;
-        t = this.s.x * 0.1;
-        this.movements.left = this.p.x - t > x;
-        this.movements.right = this.p.x + t < x;
-      }
+      var px;
+      px = this.p.x;
       if (this.movements.left) {
         this.p.x -= this.s.x * dt;
       }
       if (this.movements.right) {
         this.p.x += this.s.x * dt;
       }
-      this.p.x = max(min(this.p.x, this.ground.p.x + this.ground.size.x - this.r), this.ground.p.x + this.r);
-      if (this.ground) {
-        return this.p.y = this.ground.top(this.p.x);
+      if (px !== this.p.x) {
+        return this.update_pos();
       }
     };
 

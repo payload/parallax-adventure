@@ -44,7 +44,7 @@
     Panorama.prototype.draw = function() {
       var ctx, hide, i, j, l, layer, layers, s, scroll, show, x, _i, _j, _k, _len, _len1, _ref;
       layers = this.layers.values();
-      show = 10;
+      show = 6;
       hide = layers.slice(0, this.current_layer).concat(layers.slice(this.current_layer + show));
       for (_i = 0, _len = hide.length; _i < _len; _i++) {
         layer = hide[_i];
